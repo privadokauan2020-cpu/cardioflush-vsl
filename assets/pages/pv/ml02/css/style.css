@@ -19,9 +19,11 @@
   margin-bottom: 8px;
 }
 
-/* Once the offer is on screen the page has one job. The headline that carried
-   the reader up to this point would only compete with the button. */
-.lead-cbs.is-revealed .headline-block {
+/* Once the offer is on screen the page has one job. The headline and the LIVE
+   strip that carried the reader up to this point would only compete with the
+   button. */
+.lead-cbs.is-revealed .headline-block,
+.lead-cbs.is-revealed .live-viewers {
   display: none;
 }
 
