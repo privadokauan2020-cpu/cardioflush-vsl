@@ -17,6 +17,9 @@
 
 .lead-cbs .headline-block h1 {
   margin-bottom: 8px;
+  /* 4.35vw tracks the viewport so this copy holds at three lines on phones;
+     the shared stylesheet's 20px floor pushed it to four. */
+  font-size: clamp(0.875rem, 4.35vw, 1.375rem);
 }
 
 /* Once the offer is on screen the page has one job. The headline and the LIVE
