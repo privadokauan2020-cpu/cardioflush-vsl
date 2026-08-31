@@ -52,6 +52,30 @@
   min-height: 64px;
 }
 
+/* On a phone the browser chrome eats ~180px, so the revealed button slims down
+   and its label sizes to fit one line. */
+@media (max-width: 719px) {
+  .lead-cbs.is-revealed .cta-block__button {
+    min-height: 50px;
+    padding: 11px 14px;
+    border-radius: 12px;
+    font-size: 20px;
+  }
+
+  .lead-cbs.is-revealed .cta-block__stock {
+    margin-top: 6px;
+    font-size: 16px;
+  }
+}
+
+/* Short viewports (Safari with both bars visible): the player gives up a bit
+   more width so video + button still share the screen. */
+@media (max-width: 719px) and (max-height: 720px) {
+  .lead-cbs.is-revealed .video_vturb vturb-smartplayer {
+    max-width: 270px !important;
+  }
+}
+
 /* ---- Header and LIVE bar ------------------------------------------------- */
 
 /* Give the CBS bar room to breathe before the LIVE strip. */
