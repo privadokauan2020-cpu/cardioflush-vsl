@@ -140,21 +140,31 @@
 
          The vturb player swallows the tap (stopPropagation), so a listener on
          the container never fires; document-level capture runs before the
-         player's own handler and sees the tap regardless. The scroll waits a
-         beat so the player's DOM swap (thumbnail → video) can't cancel it. */
+         player's own handler and sees the tap regardless. The scroll must not
+         start until the finger is off the screen — iOS treats a page that
+         moves mid-touch as a scroll gesture and doubles up the player toggle
+         (play, then pause) — so it waits for pointerup/touchend plus a beat
+         for the player's DOM swap (thumbnail → video). */
       (function () {
         var video = document.querySelector(".video_vturb");
         if (!video) return;
 
         var framed = false;
+        var scroll = function () {
+          window.removeEventListener("pointerup", scroll, true);
+          window.removeEventListener("touchend", scroll, true);
+          window.setTimeout(function () {
+            video.scrollIntoView({ behavior: "smooth", block: "center" });
+          }, 350);
+        };
+
         var frame = function (e) {
           if (framed) return;
           var path = e.composedPath ? e.composedPath() : [];
           if (path.indexOf(video) === -1 && !video.contains(e.target)) return;
           framed = true;
-          window.setTimeout(function () {
-            video.scrollIntoView({ behavior: "smooth", block: "center" });
-          }, 250);
+          window.addEventListener("pointerup", scroll, true);
+          window.addEventListener("touchend", scroll, true);
         };
 
         document.addEventListener("pointerdown", frame, true);
